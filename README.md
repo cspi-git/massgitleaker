@@ -1,5 +1,5 @@
 # MassGitLeaker
-Fast & Lightweight Github user repositories/repos credential leaker with [trufflehog](https://github.com/trufflesecurity/trufflehog).
+Fast & Lightweight Github user repositories & repos credentials leaker with [trufflehog](https://github.com/trufflesecurity/trufflehog).
 
 ## Installation
 Github:

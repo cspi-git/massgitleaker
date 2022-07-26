@@ -10,6 +10,7 @@
     const fs = require("fs")
     
     // Variables
+    const settings = require("./settings.json")
     const parser = new ArgumentParser({
         description: "You must choose at least one argument between --user & --repos"
     })
@@ -51,7 +52,7 @@
         await runJobs(
             repos,
             async(repo)=>{
-                var results = shellJS.exec(`tools\\trufflehog git ${repo} --no-update`, { silent: true }).stdout
+                var results = shellJS.exec(`${settings.trufflehogPath} git ${repo} --no-update`, { silent: true }).stdout
     
                 if(results.match("Detector Type:")){
                     MassGitLeak.found++
