@@ -15,7 +15,7 @@
         description: "You must choose at least one argument between --user & --repos"
     })
 
-    var MassGitLeak = {
+    var massGitLeaker = {
         userRepos: [],
         page: 1,
         found: 0
@@ -25,7 +25,7 @@
 
     // Functions
     async function getUserRepositories(){
-        var response = await request(`https://api.github.com/users/${args.user}/repos?per_page=50&page=${MassGitLeak.page}`, {
+        var response = await request(`https://api.github.com/users/${args.user}/repos?per_page=50&page=${massGitLeaker.page}`, {
             headers: {
                 "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36"
             }
@@ -34,17 +34,17 @@
         response = JSON.parse(response.body)
 
         if(!response.length){
-            if(!MassGitLeak.userRepos.length) return console.log("No repositories found in the user.")
+            if(!massGitLeaker.userRepos.length) return console.log("No repositories found in the user.")
 
-            console.log(`${MassGitLeak.userRepos.length} repositories found in the user.`)
+            console.log(`${massGitLeaker.userRepos.length} repositories found in the user.`)
             console.log("Scanning the user repositories, please wait.")
 
-            return scanRepositories(MassGitLeak.userRepos)
+            return scanRepositories(massGitLeaker.userRepos)
         }
 
-        for( const repo of response ) MassGitLeak.userRepos.push(repo.html_url)
+        for( const repo of response ) massGitLeaker.userRepos.push(repo.html_url)
 
-        MassGitLeak.page++
+        massGitLeaker.page++
         getUserRepositories()
     }
 
@@ -55,14 +55,14 @@
                 var results = shellJS.exec(`${settings.trufflehogPath} git ${repo} --no-update`, { silent: true }).stdout
     
                 if(results.match("Detector Type:")){
-                    MassGitLeak.found++
+                    massGitLeaker.found++
                     console.log(`Found credentials in ${repo}`)
                     fs.writeFileSync(`${path.join(args.outputDir, repo.slice(19, repo.length).replace(".git", "").replace(/\//g, "-"))}.txt`, results, "utf8")
                 }
             }
         )
     
-        MassGitLeak.found ? console.log(`Found credentials in ${MassGitLeak.found} repositories.`) : console.log("No credentials found in repositories.")
+        massGitLeaker.found ? console.log(`Found credentials in ${massGitLeaker.found} repositories.`) : console.log("No credentials found in repositories.")
     }
     
     // Main

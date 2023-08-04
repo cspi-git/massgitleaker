@@ -4,7 +4,7 @@ Fast & Lightweight Github user repositories & repos credentials leaker with [tru
 ## Installation
 Github:
 ```
-git clone https://github.com/OTAKKATO/massgitleaker
+git clone https://github.com/cspi-git/massgitleaker
 ```
 
 NpmJS:
@@ -29,4 +29,4 @@ optional arguments:
 ```
 
 ## License
-MIT © I2rys
+MIT © CSPI
